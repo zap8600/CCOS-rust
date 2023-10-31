@@ -1,0 +1,7 @@
+[package]
+name = "CCOS"
+version = "0.1.0"
+edition = "2023"
+
+[dependencies]
+limine = "0.1.11"
