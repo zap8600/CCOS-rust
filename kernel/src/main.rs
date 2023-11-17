@@ -38,11 +38,21 @@ fn rust_panic(_info: &core::panic::PanicInfo) -> ! {
     hcf();
 }
 
+#[cfg(target_arch = "x86_64")]
 fn hcf() -> ! {
     unsafe {
         asm!("cli");
         loop {
             asm!("hlt");
+        }
+    }
+}
+
+#[cfg(any(target_arch = "aarch64", target_arch = "riscv64"))]
+fn hcf() -> ! {
+    unsafe {
+        loop {
+            asm!("wfi");
         }
     }
 }
