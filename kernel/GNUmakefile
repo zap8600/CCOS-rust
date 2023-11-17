@@ -25,9 +25,9 @@ endif
 .PHONY: all
 all:
 	echo "fn main() { \
-	    println!("cargo:rustc-link-arg=-Tlinker-aarch64.ld"); \
-	    println!("cargo:rerun-if-changed=linker-aarch64.ld"); \
-	}" > build.rs
+    println!(\"cargo:rustc-link-arg=-Tlinker-$(ARCH).ld\"); \
+    println!(\"cargo:rerun-if-changed=linker-$(ARCH).ld\"); \
+}" > build.rs
 	cargo build --target $(TARGET) --profile $(RUST_PROFILE)
 	cp target/$(TARGET)/$(RUST_PROFILE_SUBDIR)/ccos kernel
 
@@ -35,7 +35,7 @@ all:
 .PHONY: clean
 clean:
 	cargo clean
-	rm -rf kernel
+	rm -rf kernel build.rs
 
 .PHONY: distclean
 distclean: clean
